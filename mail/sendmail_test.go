@@ -1,4 +1,4 @@
-package main  // not working
+package sendmail
 
 import "testing"
 
