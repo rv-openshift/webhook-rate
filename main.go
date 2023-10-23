@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"net/smtp"
 	"os"
-	"github.com/rv-openshift/webhook-rate/mail/sendmail"
+	"github.com/rv-openshift/webhook-rate/mail"
 )
 
 type Message struct {
