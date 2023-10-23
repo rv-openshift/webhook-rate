@@ -1,8 +1,8 @@
 rm -f go.mod  go.sum
 #export GO111MODULE=on
 export GO111MODULE=auto
-go mod init
-go mod mail
+go mod init webhook-rate
+#go mod mail
 go build
 go get golang.org/x/time/rate
 go get gopkg.in/gomail.v2
