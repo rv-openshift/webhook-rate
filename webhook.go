@@ -3,11 +3,11 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"webhook-rate/mail"
 	"golang.org/x/time/rate"
 	"log"
 	"net/http"
 	"os"
-	"github.com/rv-openshift/webhook-rate/mail/sendmail"
 )
 
 type Message struct {
@@ -43,7 +43,7 @@ func endpointHandler(writer http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		return
 	} else {
-		er := SendmaiL("venerayan@gmail.com", os.Args[1]) // os-args is the app-password of gmail
+		er := mail.SendmaiL("venerayan@gmail.com", os.Args[1]) // os-args is the app-password of gmail
 		if er != nil {
 			fmt.Println("Email have error: %v", er)
 		}

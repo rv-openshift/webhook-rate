@@ -1,6 +1,6 @@
 rm -f go.mod  go.sum
-#export GO111MODULE=on
-export GO111MODULE=auto
+export GO111MODULE=on
+#export GO111MODULE=auto
 go mod init webhook-rate
 #go mod mail
 go build
