@@ -6,7 +6,6 @@ import (
 	"golang.org/x/time/rate"
 	"log"
 	"net/http"
-	"net/smtp"
 	"os"
 	"github.com/rv-openshift/webhook-rate/mail"
 )
