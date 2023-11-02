@@ -8,3 +8,7 @@ go get golang.org/x/time/rate
 go get gopkg.in/gomail.v2
 go mod tidy
 go run webhook.go
+
+
+oc -n bgd patch deploy/bgd --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/env/0/value", "value":"green"}]'
+deployment.apps/bgd patched
