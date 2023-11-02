@@ -1,0 +1,68 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: webhook
+  namespace: webhook
+  labels:
+    app: webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook
+  template:
+    metadata:
+      labels:
+        app: webhook
+    spec:
+      containers:
+        - name: container
+          image: 'docker.io/venerayan/webhook:v2'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webhook
+  namespace: webhook
+  labels:
+    app: webhook
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  selector:
+    app: webhook
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: webhook
+  namespace: webhook
+  labels:
+    app: webhook
+spec:
+  host: webhook-webhook.apps-crc.testing
+  to:
+    kind: Service
+    name: webhook
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
